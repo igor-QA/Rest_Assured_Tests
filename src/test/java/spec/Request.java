@@ -6,17 +6,16 @@ import io.restassured.specification.RequestSpecification;
 
 import static filter.LogFilter.filters;
 
-public class Specification {
-
-    private static final RequestSpecification requestSpec = new RequestSpecBuilder()
+public class Request {
+    private static final RequestSpecification spec = new RequestSpecBuilder()
             .setBaseUri("https://reqres.in/")
             .setBasePath("api")
             .addFilter(filters().withCustomTemplates())
             .setContentType(ContentType.JSON)
             .build();
 
-    public static RequestSpecification requestSpec() {
-        return requestSpec;
+    public static RequestSpecification spec() {
+        return spec;
     }
 }
 

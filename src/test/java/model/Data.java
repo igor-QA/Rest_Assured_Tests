@@ -1,13 +1,15 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 //Композитная модель
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
     private int id;
     private String email;
-    private String lastname;
+    @JsonProperty("last_name")
+    private String lastName;
 
     public int getId() {
         return id;
@@ -25,11 +27,11 @@ public class Data {
         this.email = email;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

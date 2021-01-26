@@ -1,19 +1,19 @@
 package tests;
 
-import model.Data;
 import model.User;
 import model.UserData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import spec.Request;
 
-
+import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static spec.Specification.requestSpec;
+
 import static utils.TestUtils.*;
 
-public class ReqresInApiTests {
+public class ReqresInApiTests extends TestBase{
 
     private static final int USER_ID = 10;
 
@@ -21,9 +21,10 @@ public class ReqresInApiTests {
     @DisplayName("Test for Check list users")
     public void getListUsers() {
         given()
-                .spec(requestSpec())
+                .spec(Request.spec())
+        .when()
                 .get("/users/2")
-                .then()
+        .then()
                 .log().body()
                 .statusCode(200)
                 .body("data.last_name", is("Weaver"));
@@ -32,23 +33,17 @@ public class ReqresInApiTests {
 
     @Test
     @DisplayName("Create user")
-    public void shouldCreateUsers() {
-        given()
-                .spec(requestSpec())
-                .body(readFromFile("src/test/resources/createUser"))
-                .post("users")
-                .then()
-                .statusCode(201)
-                .log().body()
-                .body("id", notNullValue())
-                .body("name", is("morpheus"));
+    void shouldCreateUsers() {
+        step("Создание пользователя", () -> {
+        steps.shouldCreateUsers();
+        });
     }
 
     @Test
     @DisplayName("Update user")
     public void shouldUpdateUsers() {
         given()
-                .spec(requestSpec())
+                .spec(Request.spec())
                 .body(readFromFile("src/test/resources/updateUser"))
                 .put("users?page=2")
                 .then()
@@ -63,7 +58,7 @@ public class ReqresInApiTests {
     @DisplayName("Should return user via api")
     void returnUserViaApi() {
         UserData userData = given()
-                .spec(requestSpec())
+                .spec(Request.spec())
                 .when()
                 .get("users/" + USER_ID)
                 .then()
@@ -73,7 +68,7 @@ public class ReqresInApiTests {
 
         assertThat(userData.getData().getId(), is(10));
         assertThat(userData.getData().getEmail(), is(equalTo("byron.fields@reqres.in")));
-        assertThat(userData.getData().getLastname(), is("Fields"));
+        assertThat(userData.getData().getLastName(), is("Fields"));
 
     }
 /*
@@ -98,7 +93,7 @@ public class ReqresInApiTests {
         user.setEmail("eve.holt@reqres.in");
         user.setPassword("cityslicka");
                 given()
-                .spec(requestSpec())
+                .spec(Request.spec())
                 .body(user)
                 .when()
                 .post("register")
@@ -115,7 +110,7 @@ public class ReqresInApiTests {
         user.setEmail("mark@ya.ru");
 
                  given()
-                .spec(requestSpec())
+                .spec(Request.spec())
                 .body(user)
                 .post("users")
                 .then()
