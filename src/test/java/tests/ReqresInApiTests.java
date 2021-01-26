@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import spec.Specification;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static utils.TestUtils.*;
 
 public class ReqresInApiTests {
@@ -42,9 +42,9 @@ public class ReqresInApiTests {
                 .statusCode(201)
                 .log().body()
                 .body("id", notNullValue())
-                .body("createdAt", notNullValue());
-
+                .body("name", is("morpheus"));
     }
+
     @Test
     @DisplayName("Update user")
     public void shouldUpdateUsers() {
@@ -56,7 +56,8 @@ public class ReqresInApiTests {
                 .statusCode(200)
                 .log().body()
                 .body("name", notNullValue())
-                .body("updatedAt", notNullValue());
+                .body("job", is("zion resident"));
 
     }
+
 }
