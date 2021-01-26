@@ -1,11 +1,13 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String email;
-    private String last_name;
+    @JsonProperty("last_name")
+    private String lastname;
     private String password;
 
     public String getPassword() {
@@ -24,11 +26,12 @@ public class User {
         this.email = email;
     }
 
-    public String getLast_name() {
-        return last_name;
+
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }

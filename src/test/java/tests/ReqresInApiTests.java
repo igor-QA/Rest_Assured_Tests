@@ -73,9 +73,10 @@ public class ReqresInApiTests {
 
         assertThat(userData.getData().getId(), is(10));
         assertThat(userData.getData().getEmail(), is(equalTo("byron.fields@reqres.in")));
+        assertThat(userData.getData().getLastname(), is("Fields"));
 
     }
-
+/*
     @Test
     @DisplayName("Should return Single User")
     public void returnSingleUser() {
@@ -88,6 +89,7 @@ public class ReqresInApiTests {
                 .as(Data.class);
         assertThat(data.getEmail(), is("janet.weaver@reqres.in"));
     }
+ */
 
     @Test
     @DisplayName("Register succesful")
@@ -103,5 +105,22 @@ public class ReqresInApiTests {
                 .then()
                 .statusCode(200)
                 .body("id", is(4));
+    }
+
+    @Test
+    @DisplayName("Create valid user")
+    void createValidUser() {
+        User user = new User();
+        user.setLastname("Mark");
+        user.setEmail("mark@ya.ru");
+
+                 given()
+                .spec(requestSpec())
+                .body(user)
+                .post("users")
+                .then()
+                .statusCode(201)
+                .body("email", is("mark@ya.ru"));
+
     }
 }
