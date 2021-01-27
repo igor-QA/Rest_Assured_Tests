@@ -5,7 +5,7 @@ import model.User;
 import model.UserData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import spec.Specification;
+import spec.Request;
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
@@ -14,12 +14,14 @@ import static org.hamcrest.Matchers.*;
 import static utils.TestUtils.*;
 
 public class ReqresInApiTests {
-
+    /* можно задать одну спецификацию для всех запросов:
+    RestAssured.requestSpecification = Request.spec();
+     */
     @Test
     @DisplayName("Test for Check list users")
     public void getListUsers() {
         given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .get("/users/2")
                 .then()
                 .log().body()
@@ -31,7 +33,7 @@ public class ReqresInApiTests {
     @DisplayName("Create user")
     public void shouldCreateUsers() {
         given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .body(readFromFile("src/test/resources/createUser"))
                 .post("users")
                 .then()
@@ -45,7 +47,7 @@ public class ReqresInApiTests {
     @DisplayName("Update user")
     public void shouldUpdateUsers() {
         given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .body(readFromFile("src/test/resources/updateUser"))
                 .put("users?page=2")
                 .then()
@@ -59,7 +61,7 @@ public class ReqresInApiTests {
     @DisplayName("Should return user via api")
     void returnUserViaApi() {
         UserData userData = given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .when()
                 .get("users/" + 10)
                 .then()
@@ -76,7 +78,7 @@ public class ReqresInApiTests {
     @DisplayName("Should returns all list Users ")
     public void returnListUser() {
        ListUsers listUsers = given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .get("users?page=2")
                 .then()
                 .statusCode(200)
@@ -94,7 +96,7 @@ public class ReqresInApiTests {
         user.setEmail("eve.holt@reqres.in");
         user.setPassword("cityslicka");
                 given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .body(user)
                 .when()
                 .post("register")
@@ -111,7 +113,7 @@ public class ReqresInApiTests {
         user.setEmail("mark@ya.ru");
 
                  given()
-                .spec(Specification.spec())
+                .spec(Request.spec())
                 .body(user)
                 .post("users")
                 .then()
