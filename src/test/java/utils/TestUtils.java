@@ -1,12 +1,10 @@
 package utils;
 
 import org.apache.commons.io.IOUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
 
 public class TestUtils {
     public static String readFromFile(String path) {
