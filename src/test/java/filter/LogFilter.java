@@ -21,4 +21,3 @@ public class LogFilter {
         return FILTER;
     }
 }
-

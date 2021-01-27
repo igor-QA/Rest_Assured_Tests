@@ -1,11 +1,13 @@
 package tests;
 
-import model.Data;
+import model.ListUsers;
 import model.User;
 import model.UserData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,7 +29,6 @@ public class ReqresInApiTests {
                 .log().body()
                 .statusCode(200)
                 .body("data.last_name", is("Weaver"));
-
     }
 
     @Test
@@ -56,7 +57,6 @@ public class ReqresInApiTests {
                 .log().body()
                 .body("name", notNullValue())
                 .body("job", is("zion resident"));
-
     }
 
     @Test
@@ -73,23 +73,23 @@ public class ReqresInApiTests {
 
         assertThat(userData.getData().getId(), is(10));
         assertThat(userData.getData().getEmail(), is(equalTo("byron.fields@reqres.in")));
-        assertThat(userData.getData().getLastname(), is("Fields"));
-
+        assertThat(userData.getData().getLastName(), is("Fields"));
     }
-/*
+
     @Test
-    @DisplayName("Should return Single User")
-    public void returnSingleUser() {
-        Data data = given()
+    @DisplayName("Should returns all list Users ")
+    public void returnListUser() {
+       ListUsers listUsers = given()
                 .spec(requestSpec())
-                .get("user/2")
+                .get("users?page=2")
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(Data.class);
-        assertThat(data.getEmail(), is("janet.weaver@reqres.in"));
+                .as(ListUsers.class);
+
+       List<User> data = listUsers.getData();
+       assertThat(data.size(), is(6));
     }
- */
 
     @Test
     @DisplayName("Register succesful")
