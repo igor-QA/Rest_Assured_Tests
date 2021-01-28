@@ -9,7 +9,7 @@ import static filter.LogFilter.filters;
 
 public class Request {
 
-    private static final RequestSpecification spec = new RequestSpecBuilder() //requestSpec
+    private static final RequestSpecification SPEC = new RequestSpecBuilder() //requestSpec
             .setBaseUri("https://reqres.in/")
             .setBasePath("api")
             .addFilter(filters().withCustomTemplates())
@@ -18,6 +18,6 @@ public class Request {
             .build();
 
     public static RequestSpecification spec(){
-        return spec;
+        return SPEC;
     }
 }

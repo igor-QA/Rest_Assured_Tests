@@ -6,7 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class TestUtils {
+/** Вспомогательный класс для работы с файлами */
+public class FileUtils {
     public static String readFromFile(String path) {
         try (FileInputStream fis = new FileInputStream(new File(path))) {
             return IOUtils.toString(fis, StandardCharsets.UTF_8);

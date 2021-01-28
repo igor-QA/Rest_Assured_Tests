@@ -3,7 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//Композитная модель
+/** Композитная модель */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
     private int id;

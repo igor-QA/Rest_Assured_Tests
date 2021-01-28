@@ -6,21 +6,20 @@ import model.UserData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import spec.Request;
-import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static utils.TestUtils.*;
+import static utils.FileUtils.*;
 
 public class ReqresInApiTests {
-    /* можно задать одну спецификацию для всех запросов:
+    /** можно задать одну спецификацию для всех запросов:
     RestAssured.requestSpecification = Request.spec();
      */
     @Test
     @DisplayName("Test for Check list users")
     public void getListUsers() {
-        given()
+                 given()
                 .spec(Request.spec())
                 .get("/users/2")
                 .then()
@@ -32,7 +31,7 @@ public class ReqresInApiTests {
     @Test
     @DisplayName("Create user")
     public void shouldCreateUsers() {
-        given()
+                 given()
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/createUser"))
                 .post("users")
@@ -46,10 +45,10 @@ public class ReqresInApiTests {
     @Test
     @DisplayName("Update user")
     public void shouldUpdateUsers() {
-        given()
+                 given()
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/updateUser"))
-                .put("users?page=2")
+                .put("users")
                 .then()
                 .statusCode(200)
                 .log().body()
@@ -75,18 +74,16 @@ public class ReqresInApiTests {
     }
 
     @Test
-    @DisplayName("Should returns all list Users ")
+    @DisplayName("Should return all list Users ")
     public void returnListUser() {
        ListUsers listUsers = given()
                 .spec(Request.spec())
-                .get("users?page=2")
+                .get("users")
                 .then()
                 .statusCode(200)
                 .extract()
                 .as(ListUsers.class);
-
-       List<User> data = listUsers.getData();
-       assertThat(data.size(), is(6));
+       assertThat(listUsers.getData().size(), is(6));
     }
 
     @Test
@@ -95,7 +92,7 @@ public class ReqresInApiTests {
         User user = new User();
         user.setEmail("eve.holt@reqres.in");
         user.setPassword("cityslicka");
-                given()
+                 given()
                 .spec(Request.spec())
                 .body(user)
                 .when()
@@ -111,7 +108,6 @@ public class ReqresInApiTests {
         User user = new User();
         user.setLastName("Mark");
         user.setEmail("mark@ya.ru");
-
                  given()
                 .spec(Request.spec())
                 .body(user)
